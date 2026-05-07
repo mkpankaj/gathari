@@ -10,6 +10,15 @@ import TimelineTabs from '../components/TimelineTabs'
 import TrendBadge from '../components/TrendBadge'
 import { useToast } from '../context/ToastContext'
 
+const TIMELINE_DAYS = { '1M': 30, '3M': 90, '6M': 180, '9M': 270, '1Y': 365, '1.5Y': 548, '2Y': 730 }
+
+function timelineCutoff(timeline) {
+  const days = TIMELINE_DAYS[timeline] ?? 730
+  const d = new Date()
+  d.setDate(d.getDate() - days)
+  return d
+}
+
 function fmtAxisDate(dateStr, timeline) {
   const d = new Date(dateStr)
   if (timeline === '1M') return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })
@@ -122,23 +131,29 @@ export default function StockDetail() {
               </div>
             </div>
 
-            {data.headlines?.length > 0 && (
-              <div className="card" style={{ marginTop: '1.25rem' }}>
-                <div className="card-body">
-                  <div className="headlines">
-                    <h3>Recent News</h3>
-                    {data.headlines.map((h, i) => (
-                      <div key={i} className="headline-item">
-                        <a href={h.url} target="_blank" rel="noreferrer">{h.headline}</a>
-                        <div className="headline-source">
-                          {[h.source, h.published_at ? fmtPubDate(h.published_at) : null].filter(Boolean).join(' · ')}
+            {(() => {
+              const cutoff = timelineCutoff(timeline)
+              const filtered = (data.headlines ?? []).filter(h =>
+                h.published_at ? new Date(h.published_at) >= cutoff : false
+              )
+              return filtered.length > 0 ? (
+                <div className="card" style={{ marginTop: '1.25rem' }}>
+                  <div className="card-body">
+                    <div className="headlines">
+                      <h3>News — last {timeline}</h3>
+                      {filtered.map((h, i) => (
+                        <div key={i} className="headline-item">
+                          <a href={h.url} target="_blank" rel="noreferrer">{h.headline}</a>
+                          <div className="headline-source">
+                            {[h.source, h.published_at ? fmtPubDate(h.published_at) : null].filter(Boolean).join(' · ')}
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              ) : null
+            })()}
           </>
         )}
       </div>

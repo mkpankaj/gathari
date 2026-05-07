@@ -118,10 +118,10 @@ Configuration page, background scheduler, password reset, admin UI, rate limitin
 
 1. ✅ Backend skeleton + Postgres + Alembic + Nifty50 seed
 2. ✅ Auth (register, login, JWT)
-3. 🔲 Stock fetcher + `/refresh` endpoint
-4. 🔲 Analyzer + `/dashboard`
-5. 🔲 Stock detail + Nifty50 endpoints
-6. 🔲 News fetcher
-7. 🔲 Frontend: login → dashboard → stock → nifty50
-8. 🔲 Deploy to Render + Neon
-9. 🔲 Smoke test, hand off to small group
+3. ✅ Stock fetcher + `/refresh` endpoint
+4. ✅ Analyzer + `/dashboard`
+5. ✅ Stock detail + Nifty50 endpoints
+6. ✅ News fetcher
+7. ✅ Frontend: login → dashboard → stock → nifty50
+8. ✅ Deploy to Render + Neon
+9. ✅ Smoke test, hand off to small group

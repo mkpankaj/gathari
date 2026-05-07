@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import api from '../api'
 import Navbar from '../components/Navbar'
 import TimelineTabs from '../components/TimelineTabs'
@@ -18,6 +18,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
   const toast = useToast()
+  const navigate = useNavigate()
 
   useEffect(() => {
     setLoading(true)
@@ -46,8 +47,10 @@ export default function Dashboard() {
       <Navbar />
       <div className="container">
         <div className="dashboard-toolbar">
-          <h1 style={{ fontSize: '1.4rem', fontWeight: 700 }}>Dashboard</h1>
-          <button className="btn btn-outline btn-sm" onClick={handleRefresh} disabled={refreshing}>
+          <button className="btn btn-outline btn-sm" onClick={() => navigate('/nifty50')}>
+            Nifty 50
+          </button>
+          <button className="btn btn-primary btn-sm" onClick={handleRefresh} disabled={refreshing}>
             {refreshing ? 'Refreshing…' : 'Refresh Data'}
           </button>
         </div>
