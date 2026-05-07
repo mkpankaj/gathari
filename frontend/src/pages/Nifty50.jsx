@@ -65,14 +65,14 @@ export default function Nifty50() {
                       <XAxis
                         dataKey="trade_date"
                         tickFormatter={d => fmtAxisDate(d, timeline)}
-                        tick={{ fontSize: 10, fill: '#4a5070', fontFamily: 'JetBrains Mono, monospace' }}
+                        tick={{ fontSize: 10, fill: '#9098b8', fontFamily: 'JetBrains Mono, monospace' }}
                         axisLine={{ stroke: '#1e2235' }}
                         tickLine={false}
                         minTickGap={52}
                       />
                       <YAxis
                         domain={['auto', 'auto']}
-                        tick={{ fontSize: 10, fill: '#4a5070', fontFamily: 'JetBrains Mono, monospace' }}
+                        tick={{ fontSize: 10, fill: '#9098b8', fontFamily: 'JetBrains Mono, monospace' }}
                         tickFormatter={v => Number(v).toLocaleString('en-IN')}
                         axisLine={false}
                         tickLine={false}
