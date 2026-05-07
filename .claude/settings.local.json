@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(docker info *)",
+      "Bash(rm \"D:\\\\code\\\\gathari\\\\docker-compose.yml\")",
+      "Bash(rm \"D:\\\\code\\\\gathari\\\\backend\\\\Dockerfile\")",
+      "PowerShell(Get-Content *)",
+      "PowerShell(cd D:\\\\code\\\\gathari\\\\backend; $proc = Start-Process -PassThru -FilePath \".\\\\.venv\\\\Scripts\\\\uvicorn.exe\" -ArgumentList \"app.main:app\",\"--port\",\"8000\" -RedirectStandardOutput \"$env:TEMP\\\\uv_out.log\" -RedirectStandardError \"$env:TEMP\\\\uv_err.log\"; Start-Sleep -Seconds 4; Write-Output \"PID: $\\($proc.Id\\)\")",
+      "Bash(.\\\\.venv\\\\Scripts\\\\python.exe -c \"from app.refresh.routes import router; from app.stocks.fetcher import fetch_stock_prices; from app.nifty.fetcher import fetch_nifty50; print\\('imports ok'\\)\")"
+    ]
+  }
+}
