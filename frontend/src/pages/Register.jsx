@@ -30,28 +30,37 @@ export default function Register() {
   }
 
   return (
-    <div className="form-wrap">
-      <div className="card">
-        <div className="card-body">
+    <div className="auth-layout">
+      <div className="auth-panel">
+        <div className="auth-brand">
+          <span className="auth-logo-mark">G</span>
+          <h1 className="auth-title">Gathari</h1>
+          <p className="auth-tagline">Nifty 50 &nbsp;·&nbsp; <em>Market Intelligence</em></p>
+        </div>
+      </div>
+
+      <div className="auth-form-panel">
+        <div className="auth-form-wrap">
           <h2>Create account</h2>
+          <p className="auth-subtitle">Join to track Nifty 50 stocks</p>
           <form onSubmit={submit}>
             <div className="form-group">
               <label>User ID</label>
-              <input value={form.user_id} onChange={update('user_id')} required autoFocus />
+              <input value={form.user_id} onChange={update('user_id')} required autoFocus placeholder="choose a user id" />
             </div>
             <div className="form-group">
               <label>Name</label>
-              <input value={form.user_name} onChange={update('user_name')} required />
+              <input value={form.user_name} onChange={update('user_name')} required placeholder="your name" />
             </div>
             <div className="form-group">
               <label>Password</label>
-              <input type="password" value={form.password} onChange={update('password')} required />
+              <input type="password" value={form.password} onChange={update('password')} required placeholder="••••••••" />
             </div>
             <div className="form-group">
               <label>Confirm Password</label>
-              <input type="password" value={form.confirm_password} onChange={update('confirm_password')} required />
+              <input type="password" value={form.confirm_password} onChange={update('confirm_password')} required placeholder="••••••••" />
             </div>
-            <button className="btn btn-primary" style={{ width: '100%' }} disabled={loading}>
+            <button className="btn btn-primary form-submit" disabled={loading}>
               {loading ? 'Creating…' : 'Create account'}
             </button>
           </form>

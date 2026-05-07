@@ -21,8 +21,8 @@ function timelineCutoff(timeline) {
 
 function fmtAxisDate(dateStr, timeline) {
   const d = new Date(dateStr)
-  if (timeline === '1M') return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })
-  if (['3M', '6M'].includes(timeline)) return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })
+  if (['1M', '3M', '6M'].includes(timeline))
+    return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })
   return d.toLocaleDateString('en-IN', { month: 'short', year: '2-digit' })
 }
 
@@ -35,6 +35,20 @@ function deltaClass(v) {
   if (v > 0) return 'delta-up'
   if (v < 0) return 'delta-down'
   return 'delta-neutral'
+}
+
+const CHART_TOOLTIP = {
+  contentStyle: {
+    background: '#141720',
+    border: '1px solid #2a3050',
+    borderRadius: '3px',
+    fontSize: '0.78rem',
+    fontFamily: 'JetBrains Mono, monospace',
+    color: '#dfe3f0',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
+  },
+  labelStyle: { color: '#4a5070', marginBottom: '2px' },
+  cursor: { stroke: '#f0c040', strokeWidth: 1, strokeDasharray: '4 4' },
 }
 
 export default function StockDetail() {
@@ -62,12 +76,10 @@ export default function StockDetail() {
           <>
             <div className="stock-header">
               <div>
-                <h1>
-                  {data.name}{' '}
-                  <span className="text-mono" style={{ fontWeight: 400, fontSize: '0.95rem', color: 'var(--text-muted)' }}>
-                    {symbol.replace('.NS', '')}
-                  </span>
-                </h1>
+                <div className="stock-name">
+                  {data.name}
+                  <span className="stock-symbol">{symbol.replace('.NS', '')}</span>
+                </div>
                 {data.industry && <div className="stock-meta">{data.industry}</div>}
               </div>
               <TrendBadge trend={data.trend} />
@@ -89,9 +101,9 @@ export default function StockDetail() {
                 </span>
               </div>
               <div className="stat">
-                <span className="stat-label">Slope</span>
+                <span className="stat-label">Slope / day</span>
                 <span className="stat-value">
-                  {data.slope_pct > 0 ? '+' : ''}{data.slope_pct.toFixed(4)}%/day
+                  {data.slope_pct > 0 ? '+' : ''}{data.slope_pct.toFixed(4)}%
                 </span>
               </div>
             </div>
@@ -103,25 +115,37 @@ export default function StockDetail() {
                 {data.prices?.length > 0 ? (
                   <div className="chart-wrap">
                     <ResponsiveContainer width="100%" height="100%">
-                      <LineChart data={data.prices} margin={{ top: 4, right: 16, bottom: 4, left: 0 }}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                      <LineChart data={data.prices} margin={{ top: 8, right: 16, bottom: 4, left: 0 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#1e2235" vertical={false} />
                         <XAxis
                           dataKey="trade_date"
                           tickFormatter={d => fmtAxisDate(d, timeline)}
-                          tick={{ fontSize: 11 }}
-                          minTickGap={48}
+                          tick={{ fontSize: 10, fill: '#4a5070', fontFamily: 'JetBrains Mono, monospace' }}
+                          axisLine={{ stroke: '#1e2235' }}
+                          tickLine={false}
+                          minTickGap={52}
                         />
                         <YAxis
                           domain={['auto', 'auto']}
-                          tick={{ fontSize: 11 }}
+                          tick={{ fontSize: 10, fill: '#4a5070', fontFamily: 'JetBrains Mono, monospace' }}
                           tickFormatter={v => `₹${Number(v).toLocaleString('en-IN')}`}
+                          axisLine={false}
+                          tickLine={false}
                           width={80}
                         />
                         <Tooltip
+                          {...CHART_TOOLTIP}
                           formatter={v => [`₹${Number(v).toLocaleString('en-IN', { minimumFractionDigits: 2 })}`, 'Close']}
                           labelFormatter={l => `Date: ${l}`}
                         />
-                        <Line type="monotone" dataKey="close" stroke="#2563eb" dot={false} strokeWidth={2} />
+                        <Line
+                          type="monotone"
+                          dataKey="close"
+                          stroke="#f0c040"
+                          dot={false}
+                          strokeWidth={1.8}
+                          activeDot={{ r: 4, fill: '#f0c040', stroke: '#07080d', strokeWidth: 2 }}
+                        />
                       </LineChart>
                     </ResponsiveContainer>
                   </div>
@@ -139,17 +163,18 @@ export default function StockDetail() {
               return filtered.length > 0 ? (
                 <div className="card" style={{ marginTop: '1.25rem' }}>
                   <div className="card-body">
-                    <div className="headlines">
-                      <h3>News — last {timeline}</h3>
-                      {filtered.map((h, i) => (
-                        <div key={i} className="headline-item">
-                          <a href={h.url} target="_blank" rel="noreferrer">{h.headline}</a>
-                          <div className="headline-source">
-                            {[h.source, h.published_at ? fmtPubDate(h.published_at) : null].filter(Boolean).join(' · ')}
-                          </div>
-                        </div>
-                      ))}
+                    <div className="headlines-header">
+                      <h3>News</h3>
+                      <span className="timeline-pill">{timeline}</span>
                     </div>
+                    {filtered.map((h, i) => (
+                      <div key={i} className="headline-item">
+                        <a href={h.url} target="_blank" rel="noreferrer">{h.headline}</a>
+                        <div className="headline-source">
+                          {[h.source, h.published_at ? fmtPubDate(h.published_at) : null].filter(Boolean).join(' · ')}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               ) : null

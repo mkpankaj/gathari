@@ -32,7 +32,7 @@ export default function Dashboard() {
     setRefreshing(true)
     try {
       await api.post('/api/refresh')
-      toast.show('Data refreshed successfully')
+      toast.show('Data refreshed')
       const r = await api.get(`/api/dashboard?timeline=${timeline}`)
       setData(r.data)
     } catch {
@@ -54,7 +54,9 @@ export default function Dashboard() {
             {refreshing ? 'Refreshing…' : 'Refresh Data'}
           </button>
         </div>
+
         <TimelineTabs value={timeline} onChange={setTimeline} />
+
         {loading ? (
           <div className="loading">Loading…</div>
         ) : (
@@ -64,7 +66,7 @@ export default function Dashboard() {
                 <thead>
                   <tr>
                     <th>Symbol</th>
-                    <th>Name</th>
+                    <th>Company</th>
                     <th>Industry</th>
                     <th>Trend</th>
                     <th className="text-right">Delta %</th>
@@ -79,14 +81,16 @@ export default function Dashboard() {
                           {row.symbol.replace('.NS', '')}
                         </Link>
                       </td>
-                      <td>{row.name}</td>
-                      <td style={{ color: 'var(--text-muted)' }}>{row.industry || '—'}</td>
+                      <td style={{ color: 'var(--text)', fontWeight: 500 }}>{row.name}</td>
+                      <td style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{row.industry || '—'}</td>
                       <td><TrendBadge trend={row.trend} /></td>
                       <td className={`text-right ${deltaClass(row.delta_pct)}`}>
                         {row.delta_pct > 0 ? '+' : ''}{row.delta_pct.toFixed(2)}%
                       </td>
                       <td className="text-right text-mono">
-                        {row.last_price != null ? `₹${row.last_price.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : '—'}
+                        {row.last_price != null
+                          ? `₹${row.last_price.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                          : '—'}
                       </td>
                     </tr>
                   ))}

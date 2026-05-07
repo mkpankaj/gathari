@@ -12,8 +12,8 @@ export default function Navbar() {
     <nav className="navbar">
       <span className="navbar-brand">Gathari</span>
       <div className="navbar-links">
-        <NavLink to="/dashboard">Dashboard</NavLink>
-        <NavLink to="/nifty50">Nifty 50</NavLink>
+        <NavLink to="/dashboard">Markets</NavLink>
+        <NavLink to="/nifty50">Index</NavLink>
       </div>
       <div className="navbar-actions">
         <button className="btn btn-outline btn-sm" onClick={logout}>Logout</button>

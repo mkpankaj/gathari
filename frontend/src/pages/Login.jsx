@@ -26,20 +26,29 @@ export default function Login() {
   }
 
   return (
-    <div className="form-wrap">
-      <div className="card">
-        <div className="card-body">
-          <h2>Sign in to Gathari</h2>
+    <div className="auth-layout">
+      <div className="auth-panel">
+        <div className="auth-brand">
+          <span className="auth-logo-mark">G</span>
+          <h1 className="auth-title">Gathari</h1>
+          <p className="auth-tagline">Nifty 50 &nbsp;·&nbsp; <em>Market Intelligence</em></p>
+        </div>
+      </div>
+
+      <div className="auth-form-panel">
+        <div className="auth-form-wrap">
+          <h2>Sign in</h2>
+          <p className="auth-subtitle">Access your market dashboard</p>
           <form onSubmit={submit}>
             <div className="form-group">
               <label>User ID</label>
-              <input value={form.user_id} onChange={update('user_id')} required autoFocus />
+              <input value={form.user_id} onChange={update('user_id')} required autoFocus placeholder="your user id" />
             </div>
             <div className="form-group">
               <label>Password</label>
-              <input type="password" value={form.password} onChange={update('password')} required />
+              <input type="password" value={form.password} onChange={update('password')} required placeholder="••••••••" />
             </div>
-            <button className="btn btn-primary" style={{ width: '100%' }} disabled={loading}>
+            <button className="btn btn-primary form-submit" disabled={loading}>
               {loading ? 'Signing in…' : 'Sign in'}
             </button>
           </form>
