@@ -10,8 +10,8 @@
   --border-hi:   #2a3050;
 
   --text:        #dfe3f0;
-  --text-2:      #8890b0;
-  --text-muted:  #4a5070;
+  --text-2:      #b0b8d0;
+  --text-muted:  #6a7290;
 
   --gold:        #f0c040;
   --gold-dim:    rgba(240,192,64,0.1);
@@ -69,13 +69,14 @@ a:hover { color: var(--text); }
 
 .navbar-brand {
   font-family: var(--font-display);
-  font-size: 1.55rem;
-  font-weight: 600;
+  font-size: 2rem;
+  font-weight: 700;
   font-style: italic;
   color: var(--gold);
   letter-spacing: 0.01em;
   flex-shrink: 0;
   user-select: none;
+  text-shadow: 0 0 20px rgba(240,192,64,0.25);
 }
 
 .navbar-links {
@@ -85,12 +86,12 @@ a:hover { color: var(--text); }
 }
 
 .navbar-links a {
-  color: var(--text-muted);
-  font-size: 0.72rem;
+  color: var(--text-2);
+  font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 0.3rem 0.8rem;
+  padding: 0.35rem 0.9rem;
   border-radius: var(--radius-sm);
   transition: color 0.15s, background 0.15s;
 }
@@ -126,12 +127,12 @@ a:hover { color: var(--text); }
   align-items: center;
   justify-content: center;
   gap: 0.4rem;
-  padding: 0.45rem 1.1rem;
+  padding: 0.5rem 1.2rem;
   border-radius: var(--radius-sm);
   border: none;
   cursor: pointer;
   font-family: var(--font-body);
-  font-size: 0.78rem;
+  font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 0.04em;
   transition: all 0.15s;
@@ -139,10 +140,10 @@ a:hover { color: var(--text); }
 }
 .btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-.btn-primary { background: var(--gold); color: #07080d; font-weight: 600; }
+.btn-primary { background: var(--gold); color: #07080d; font-weight: 700; }
 .btn-primary:hover:not(:disabled) { background: #f5ce5a; box-shadow: var(--gold-glow); }
 
-.btn-sm { padding: 0.3rem 0.85rem; font-size: 0.73rem; }
+.btn-sm { padding: 0.35rem 0.95rem; font-size: 0.8rem; }
 
 .btn-outline {
   background: transparent;
@@ -325,20 +326,22 @@ th {
   padding: 0.65rem 1rem;
   background: var(--surface-2);
   border-bottom: 1px solid var(--border-hi);
-  font-size: 0.64rem;
-  font-weight: 600;
+  font-size: 0.66rem;
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--gold);
   white-space: nowrap;
 }
 
 td {
   padding: 0.7rem 1rem;
   border-bottom: 1px solid var(--border);
-  color: var(--text-2);
+  color: var(--text);
   vertical-align: middle;
 }
+
+td a { text-decoration: underline; text-underline-offset: 3px; }
 
 tr:last-child td { border-bottom: none; }
 

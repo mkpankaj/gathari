@@ -82,7 +82,7 @@ export default function Dashboard() {
                         </Link>
                       </td>
                       <td style={{ color: 'var(--text)', fontWeight: 500 }}>{row.name}</td>
-                      <td style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>{row.industry || '—'}</td>
+                      <td style={{ fontSize: '0.78rem', color: 'var(--text-2)' }}>{row.industry || '—'}</td>
                       <td><TrendBadge trend={row.trend} /></td>
                       <td className={`text-right ${deltaClass(row.delta_pct)}`}>
                         {row.delta_pct > 0 ? '+' : ''}{row.delta_pct.toFixed(2)}%
